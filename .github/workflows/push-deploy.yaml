@@ -23,16 +23,16 @@ jobs:
         contents: 'read'
         id-token: 'write'
     runs-on: ubuntu-latest
-    environment: development
-    env:
-      OTEL_EXPORTER_OTLP_ENDPOINT: https://staging-otlp.nr-data.net:4317
-      OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: https://staging-otlp.nr-data.net:4317
-      OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: https://staging-otlp.nr-data.net:4317
-      OTEL_EXPORTER_OTLP_ENDPOINT_INFINITE_TRACING: ${{ secrets.INFINITE_TRACING_ENDPOINT }}"
-      OTEL_EXPORTER_OTLP_HEADERS: "api-key: ${{ secrets.API_KEY }}"
-      NEW_RELIC_API_KEY: ${{ secrets.API_KEY }}
-      NEW_RELIC_LICENSE_KEY: ${{ secrets.API_KEY }}
-      NEW_RELIC_HOST: staging-collector.newrelic.com
+    environment: test
+#     env:
+#       OTEL_EXPORTER_OTLP_ENDPOINT: https://staging-otlp.nr-data.net:4317
+#       OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: https://staging-otlp.nr-data.net:4317
+#       OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: https://staging-otlp.nr-data.net:4317
+#       OTEL_EXPORTER_OTLP_ENDPOINT_INFINITE_TRACING: ${{ secrets.INFINITE_TRACING_ENDPOINT }}"
+#       OTEL_EXPORTER_OTLP_HEADERS: "api-key: ${{ secrets.API_KEY }}"
+#       NEW_RELIC_API_KEY: ${{ secrets.API_KEY }}
+#       NEW_RELIC_LICENSE_KEY: ${{ secrets.API_KEY }}
+#       NEW_RELIC_HOST: staging-collector.newrelic.com
     steps:
     - uses: actions/checkout@v2    
     - id: 'auth'
@@ -46,6 +46,8 @@ jobs:
 
     - name: 'Use gcloud CLI'
       run: 'gcloud info'
+    - name: 'Print ENV VARS'
+      run: env
     # - name: install dependencies
     #   run: .github/workflows/install-dependencies.sh
     #   shell: bash
